@@ -1,0 +1,49 @@
+{
+  "name": "rostelecom",
+  "version": "1.0.0",
+  "description": "test task for front-end developer position with Rostelecom",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xcurveballx/rostelecom.git"
+  },
+  "keywords": [
+    "rostelecom",
+    "test",
+    "task"
+  ],
+  "author": "curveball",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xcurveballx/rostelecom/issues"
+  },
+  "homepage": "https://github.com/xcurveballx/rostelecom#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babelify": "^8.0.0",
+    "browserify": "^15.2.0",
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^4.1.0",
+    "gulp-babel": "^7.0.0",
+    "gulp-cached": "^1.1.1",
+    "gulp-clean-css": "^3.9.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-if": "^2.0.2",
+    "gulp-remember": "^1.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-sequence": "^1.0.0",
+    "gulp-sourcemaps": "^2.6.3",
+    "gulp-uglify": "^3.0.0",
+    "gulplog": "^1.0.0",
+    "path": "^0.12.7",
+    "pump": "^2.0.0",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "dependencies": {}
+}
