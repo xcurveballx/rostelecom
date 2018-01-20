@@ -1,3 +1,8 @@
+/*
+ * Loading implementation using server-side Proxy. I use a free service
+ * at http://www.whateverorigin.org which just returns JSON data via JSONP.
+ */
+
 import LoadManager from "./LoadManager";
 
 export default class LoadManagerProxy extends LoadManager {
@@ -5,7 +10,6 @@ export default class LoadManagerProxy extends LoadManager {
     super(ObserverList);
     this.url = "http://www.whateverorigin.org/get?url=http://81.177.101.143:30080/test.json";
   }
-  // General functionality
   load() {
     return new Promise((resolve, reject) => {
       // Lets get JSON with needed data via Proxy

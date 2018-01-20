@@ -3,7 +3,7 @@ body
   font-family: "Roboto Condensed", Arial, sans-serif
   background-color: #fafafb
   color: #fff
-button
+#container button
   text-transform: uppercase
   -webkit-appearance: none
   outline: none
@@ -11,6 +11,21 @@ button
   border-radius: .3125rem
   background-color: #218eab
   padding: .6rem 1rem
+  line-height: 1.5
+  img
+    display: none
+  &[disabled]
+    cursor: not-allowed
+    opacity: .5
+  &.loading.loading
+    position: relative
+    padding-left: 2rem
+    img
+      display: block
+      width: 1.5rem
+      position: absolute
+      left: .35rem
+      z-index: 0
   &:hover
     background-color: #0e7591
 #container
@@ -21,7 +36,7 @@ button
   border: 1px solid #e6e6e6
   padding-bottom: 1rem
   box-shadow: 0px 0px 16px -4px rgba(0,0,0,.5)
-.items
+#items
   padding: .5rem
   display: flex
   justify-content: space-between
@@ -47,6 +62,8 @@ button
         width: 50px
         left: 50%
         margin-left: -25px
+        top: 50%
+        margin-top: -25px
         & + .flex
           background-color: #218eab
     .flex
@@ -56,14 +73,18 @@ button
       align-items: center
       height: 100%
       background-color: rgba(0,0,0,0.001) // IE10 hack
+      button
+        padding-top: .35rem
+        padding-bottom: .35rem
       .content
         line-height: 1
         span:first-of-type
-          font-size: 1.75rem
+          font-size: 1.5rem
           & + span
-            font-size: 1.25rem
+            font-size: .65rem
             margin: 1.25rem 0rem
             display: block
+            padding: 0rem .5rem
         &.back
           display: flex
           flex-direction: column
@@ -84,7 +105,7 @@ button
             bottom: 0
             left: 0
             right: 0
-      &:hover // Lift blocks on hover
+      &:hover /* Lift blocks on hover */
         .front
           transform: translateY(-11rem)
         .back
@@ -93,8 +114,16 @@ button
           bottom: 0
           left: 0
           right: 0
-@media (max-width: 767px)
-  .items
+@media (max-width: 1100px)
+  #items .item
+    flex: 1 1 31%
+@media (max-width: 1000px)
+  #items .item
+    flex: 1 1 49%
+@media (max-width: 840px)
+  #items .item .flex .content span:first-of-type
+    font-size: 1rem
+  #items
     flex-direction: column
     .item.item
       flex: 1 1 auto

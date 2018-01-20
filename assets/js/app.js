@@ -1,33 +1,15 @@
 "use strict";
-import ObserverList from './ObserverList';
-import LoadManagerProxy from './LoadManagerProxy';
-import StorageManager from './StorageManager';
+import {loadManager, viewManager, storageManager, eventManager} from "./config";
 
-let loadManager = new LoadManagerProxy(new ObserverList());
-let storageManager = new StorageManager('rostelecom');
+let json = storageManager.isEmpty() ? loadManager.load() : Promise.resolve(false),
+    dom = viewManager.ready();
 
-const config = [{
-    instance: loadManager,
-    notifies: [{
-      name: 'test',
-      observers: [{
-        instance: storageManager,
-        callback: storageManager.doSomething
-      }]
-    }]
-}];
-
-config.forEach(subject => {
-  subject.notifies.forEach(evt => {
-    evt.observers.forEach(observer => {
-      subject.instance.addObserver(evt.name, observer.instance, observer.callback);
-    });
-  });
+Promise.all([json, dom])
+.then(result => {
+  loadManager.notify('dataLoaded', result[0]['contents']);
+  loadManager.notify('totalNum', storageManager.totalNum());
+  eventManager.setEventHandlers(storageManager);
+  eventManager.notify('handlersReady', storageManager.restore());
+}, error => {
+  loadManager.notify('test', error);
 });
-
-let promise = loadManager.load();
-
-Promise.all([promise]).then(
-    result => loadManager.notify('test', result),
-    error => loadManager.notify('test', error)
-);

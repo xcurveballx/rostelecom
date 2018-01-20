@@ -1,3 +1,7 @@
+/*
+ * Loading implementation using Websockets. It seems there is no corresponding endpoint
+ * on the server. So, in fact, I use LoadManagerProxy class.
+ */
 import LoadManager from "./LoadManager";
 
 export default class LoadManagerWebSocket extends LoadManager {
@@ -5,7 +9,6 @@ export default class LoadManagerWebSocket extends LoadManager {
     super(ObserverList);
     this.url = 'ws://81.177.101.143:30080/test.json';
   }
-  // General functionality
   load() {
     return new Promise((resolve, reject) => {
       // Lets get JSON with needed data via Websockets
