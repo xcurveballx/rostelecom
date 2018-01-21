@@ -1,4 +1,4 @@
-/*
+/**
  * Parent class for further implementations.
  */
 import SubjectObserver from "./SubjectObserver";

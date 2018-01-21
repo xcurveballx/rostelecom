@@ -1,15 +1,53 @@
 @import 'normalize'
+
+$blue: #218eab
+$blue-dark: #0e7591
+$white: #fafafb
+$yellow: #f5d995
+$grey: #3f3b36
+$light-grey: #e6e6e6
+$black: #000
+
+$font-family: "Roboto Condensed", Arial, sans-serif
+$font-family-monospace: monospace
+
 body
-  font-family: "Roboto Condensed", Arial, sans-serif
-  background-color: #fafafb
-  color: #fff
+  font-family: $font-family
+  background-color: $white
+  color: $white
+.error
+  color: $blue
+  font-size: 2rem
+  font-weight: bold
+  padding: 1rem
+  pre
+    width: 80%
+    overflow: auto
+    text-align: left
+    margin: 2rem auto
+    padding: 1rem 0.8rem 1rem 1.2rem
+    color: $grey
+    border: 1px solid $yellow
+    border-left: 1rem solid $yellow
+    font-family: $font-family-monospace
+    word-wrap: normal
+    word-break: normal
+    hyphens: none
+    code
+      padding: 0
+      color: $grey
+      background-color: transparent
+      font-size: 1.2rem
+      line-height: 2rem
+      text-shadow: none
+      font-weight: lighter
 #container button
   text-transform: uppercase
   -webkit-appearance: none
   outline: none
   border-width: 0
   border-radius: .3125rem
-  background-color: #218eab
+  background-color: $blue
   padding: .6rem 1rem
   line-height: 1.5
   img
@@ -27,13 +65,13 @@ body
       left: .35rem
       z-index: 0
   &:hover
-    background-color: #0e7591
+    background-color: $blue-dark
 #container
   margin: 1rem auto
   width: 100%
   max-width: 1200px
   text-align: center
-  border: 1px solid #e6e6e6
+  border: 1px solid $light-grey
   padding-bottom: 1rem
   box-shadow: 0px 0px 16px -4px rgba(0,0,0,.5)
 #items
@@ -65,10 +103,10 @@ body
         top: 50%
         margin-top: -25px
         & + .flex
-          background-color: #218eab
+          background-color: $blue
     .flex
       display: flex
-      flex-direction: column
+      flex-direction: row
       justify-content: center
       align-items: center
       height: 100%
@@ -76,8 +114,12 @@ body
       button
         padding-top: .35rem
         padding-bottom: .35rem
+      span
+        width: 100%
+        display: inline-block
       .content
         line-height: 1
+        flex: 1 1 auto
         span:first-of-type
           font-size: 1.5rem
           & + span
@@ -97,7 +139,7 @@ body
           transform: translateY(100%)
           &::after
             content: ""
-            background-color: black
+            background-color: $black
             opacity: .5
             z-index: -1
             position: absolute

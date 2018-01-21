@@ -1,4 +1,4 @@
-/*
+/**
  * SubjectObserver, adds Subject/Observer functionality to the objects
  * and holds some common properties..
  * Subjects will emit a message to inform all the dependants that something important occurred;

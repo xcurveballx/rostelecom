@@ -1,4 +1,4 @@
-/*
+/**
  * ObserverList, adds and holds observers for the Subjects.
  * Observers - objects that depend somehow on the object they observe.
  */

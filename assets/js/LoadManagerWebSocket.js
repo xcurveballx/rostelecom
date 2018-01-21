@@ -1,4 +1,4 @@
-/*
+/**
  * Loading implementation using Websockets. It seems there is no corresponding endpoint
  * on the server. So, in fact, I use LoadManagerProxy class.
  */

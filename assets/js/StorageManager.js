@@ -1,4 +1,4 @@
-/*
+/**
  * StorageManager manages saving & retrieving data.
  * StorageManager initially always get exactly the same data
  * from the sessionStorage it saved upon getting. Then via functions
@@ -19,8 +19,8 @@ export default class StorageManager extends SubjectObserver {
     if(this.data) return this.total = this.data.length;
     return this.total = JSON.parse(window[this.type].getItem(this.name)).length;
   }
-  removeItemId(id) { // removes an id from the list of the shown ids
-    if(~this.shownIds.indexOf(id)) this.shownIds.splice(this.shownIds.indexOf(id), 1);
+  removeItemId(data) { // removes an id from the list of the shown ids
+    if(~this.shownIds.indexOf(data.id)) this.shownIds.splice(this.shownIds.indexOf(data.id), 1);
   }
   isAvailable() {
     try {

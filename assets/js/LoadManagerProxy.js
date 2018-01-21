@@ -1,9 +1,9 @@
-/*
+/**
  * Loading implementation using server-side Proxy. I use a free service
  * at http://www.whateverorigin.org which just returns JSON data via JSONP.
  */
-
 import LoadManager from "./LoadManager";
+import {Promise} from "./config";
 
 export default class LoadManagerProxy extends LoadManager {
   constructor(ObserverList) {

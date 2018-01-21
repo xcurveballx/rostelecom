@@ -1,11 +1,13 @@
-/*
+/**
  * Config variable establishes Subject-Observer relashionships.
  */
+let Promise = require('../../node_modules/es6-promise-polyfill/promise.min.js').Promise;
 import ObserverList from './ObserverList';
 import ViewManager from './ViewManager';
 import EventManager from './EventManager';
 import LoadManagerProxy from './LoadManagerProxy';
 import StorageManager from './StorageManager';
+
 
 let loadManager = new LoadManagerProxy(new ObserverList());
 let viewManager = new ViewManager(new ObserverList());
@@ -54,14 +56,23 @@ const config = [
         callback: viewManager.renderItems
       }]
     },{
+      name: 'showError',
+      observers: [{
+        instance: viewManager,
+        callback: viewManager.renderErrorView
+      }]
+    },{
       name: 'removeElem',
       observers: [{
         instance: storageManager,
         callback: storageManager.removeItemId
+      },{
+        instance: viewManager,
+        callback: viewManager.deleteItem
       }]
     }]
   }
 
 ];
 eventManager.setObservers(config);
-export {loadManager, viewManager, storageManager, eventManager};
+export {loadManager, viewManager, storageManager, eventManager, Promise};

@@ -1,7 +1,8 @@
-/*
+/**
  * ViewManageris responsible for the views and it also detects when the DOM is ready.
  */
 import SubjectObserver from "./SubjectObserver";
+import {Promise} from "./config";
 
 export default class ViewManager extends SubjectObserver {
   constructor(ObserverList) {
@@ -24,9 +25,24 @@ export default class ViewManager extends SubjectObserver {
                 <button data-download><img src="spinner.gif">download</button>`;
     root.innerHTML = view;
   }
+  renderErrorView(error) {
+    let root = document.getElementById(this.appId);
+    let view = `<div class="error">Ups...something went wrong!
+                Try to visit this page later.<pre><code><strong>${error.name}</strong>
+${error.message}
+${error.stack}</code></pre></div>`;
+    root.innerHTML = view;
+  }
   renderItems(data) {
     let root = document.getElementById(this.itemsId);
     root.insertAdjacentHTML('afterbegin', this.templateItems(data));
+  }
+  deleteItem(data) {
+    let elem = data.elem;
+    elem.classList.toggle(this.loadingClass);
+    let item = elem.parentNode.parentNode.parentNode;
+    item.parentNode.removeChild(item);
+    document.getElementById(this.appId).lastElementChild.removeAttribute('disabled');
   }
   templateItems(data) {
     let items = ``;
@@ -38,7 +54,7 @@ export default class ViewManager extends SubjectObserver {
   templateItem(item) {
     this.shown++;
     return `<div class="item">
-              <img src="spinner.gif" class="no-image"/>
+              <img data-image="${item.imageUrl}" onload="lazyLoad(this)" src="spinner.gif" class="no-image"/>
               <div class="flex">
                 <div class="content front"><span>${item.name}</span></div>
                 <div class="content back">
