@@ -23,9 +23,7 @@ export default class LoadManagerProxy extends LoadManager {
       let script = document.createElement('script');
       script.src = this.url + (~this.url.indexOf('?') ? '&' : '?') + 'callback=' + callbackName;
       document.body.appendChild(script);
-      script.onerror = function(error) {
-        reject(error);
-      }
+      script.onerror = (error) => reject(error);
     });
   }
 }

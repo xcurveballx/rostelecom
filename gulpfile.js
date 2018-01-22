@@ -20,13 +20,13 @@ const log = require('gulplog');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
 
-const isDev = process.env.NODE_ENV != 'prod',
+const isDev = process.env.NODE_ENV != 'production',
       folders = {
 	      src: './assets/',
 	      dest: './public/'
       };
 
-gulp.task('css', function () {
+gulp.task('css', function() {
   return gulp.src(folders.src + 'css/**/*.sass')
     .pipe(cached('css'))
     .pipe(gulpif(isDev, sourcemaps.init()))
@@ -37,7 +37,7 @@ gulp.task('css', function () {
     .pipe(gulp.dest(folders.dest + 'css'));
 });
 
-gulp.task('js', function () {
+gulp.task('js', function() {
   var b = browserify({
     entries: folders.src + 'js/app.js',
     debug: isDev
