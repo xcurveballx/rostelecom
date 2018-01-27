@@ -20,7 +20,7 @@ const log = require('gulplog');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
 
-const isDev = process.env.NODE_ENV != 'production',
+const isDev = false, //process.env.NODE_ENV != 'production',
       folders = {
 	      src: './assets/',
 	      dest: './public/'

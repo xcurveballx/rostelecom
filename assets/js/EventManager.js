@@ -2,29 +2,25 @@
  * EventManager - consumes config.js, sets handlers for users' actions
  */
 
-import SubjectObserver from "./SubjectObserver";
+import Manager from "./Manager";
 
-export default class EventManager extends SubjectObserver {
+export default class EventManager extends Manager {
   constructor(ObserverList) {
     super(ObserverList);
-    this.total = 0;
-    this.isBusy = false;
-    this.imgLoadFunc = 'lazyLoad';
-    this.noImgClass = 'no-image';
-    this.delay = 500;
-  }
-  setTotal(total) {
-    this.total = total;
+    this.settings.isBusy = false;
+    this.settings.imgLoadFunc = 'lazyLoad';
+    this.settings.noImgClass = 'no-image';
+    this.settings.delay = 500;
   }
   toggleBusy() {
-    this.isBusy = !this.isBusy;
+    this.settings.isBusy = !this.settings.isBusy;
   }
   defer(elem, msg, data) {
     setTimeout(() => {
-      elem.classList.toggle(this.loadingClass);
+      elem.classList.toggle(this.settings.loadingClass);
       this.notify(msg, data);
       this.toggleBusy();
-    }, this.delay);
+    }, this.settings.delay);
   }
   // carries out Subject-Observer relashionships defined in config.js
   setObservers(config) {
@@ -38,10 +34,10 @@ export default class EventManager extends SubjectObserver {
   }
   // App's behaviour. After getting users' behaviour data notifies dependants for main actions
   setEventHandlers(storageManager) {
-      window[this.imgLoadFunc] = (elem) => this.imgLoadHandler(elem);
-      window.onerror = (msg) => this.notify('showError', new Error(msg+'as'));
+      window[this.settings.imgLoadFunc] = (elem) => this.imgLoadHandler(elem);
+      window.onerror = (msg) => this.notify('showError', new Error(msg));
 
-      document.getElementById(this.appId).addEventListener('click', event => {
+      document.getElementById(this.settings.appId).addEventListener('click', event => {
         let e = event || window.event, elem = e.target || e.srcElement;
         if(elem.tagName.toLowerCase() !== 'button' || elem.disabled == true) return false;
 
@@ -56,15 +52,15 @@ export default class EventManager extends SubjectObserver {
       elem.src = url;
       elem.onload = null;
       elem.removeAttribute('onload');
-      elem.classList.toggle(this.noImgClass);
+      elem.classList.toggle(this.settings.noImgClass);
       elem.removeAttribute('data-image');
     }
     img.src = url;
   }
   itemDelHandler(elem) {
-    if(this.isBusy) return false;
+    if(this.settings.isBusy) return false;
     this.toggleBusy();
-    elem.classList.toggle(this.loadingClass);
+    elem.classList.toggle(this.settings.loadingClass);
     let data = {
       id: elem.getAttribute('data-delete'),
       elem: elem
@@ -72,12 +68,12 @@ export default class EventManager extends SubjectObserver {
     this.defer(elem, 'removeElem', data);
   }
   itemsDownloadHandler(elem, storageManager) {
-    if(this.isBusy) return false;
+    if(this.settings.isBusy) return false;
     this.toggleBusy();
-    elem.classList.toggle(this.loadingClass);
-    let loadedItems = [].slice.call(document.getElementById(this.itemsId).children).length;
-    if(this.total > loadedItems) {
-      if(loadedItems + this.perRow >= this.total) elem.setAttribute('disabled', 'disabled');
+    elem.classList.toggle(this.settings.loadingClass);
+    let loadedItems = [].slice.call(document.getElementById(this.settings.itemsId).children).length;
+    if(Manager.total > loadedItems) {
+      if(loadedItems + this.settings.perRow >= Manager.total) elem.setAttribute('disabled', 'disabled');
       this.defer(elem, 'showMore', storageManager.restore());
     }
   }

@@ -12,7 +12,6 @@ try {
   .then(result => {
     try {
       loadManager.notify('dataLoaded', result[0]['contents']);
-      loadManager.notify('totalNum', storageManager.totalNum());
       eventManager.setEventHandlers(storageManager);
       eventManager.notify('handlersReady', storageManager.restore());
     } catch(e) {

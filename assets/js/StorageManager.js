@@ -4,27 +4,24 @@
  * from the sessionStorage it saved upon getting. Then via functions
  * only chunks passed to the views.
  */
-import SubjectObserver from "./SubjectObserver";
+import Manager from "./Manager";
 
-export default class StorageManager extends SubjectObserver {
+export default class StorageManager extends Manager {
   constructor(ObserverList) {
     super(ObserverList);
-    this.name = 'rostelecom';
     this.data = null;
-    this.type = 'sessionStorage';
-    this.sortProp = 'age';
     this.shownIds = []; // keeps track of what is currently shown
+    this.settings.storageName = 'rostelecom';
+    this.settings.storageType = 'sessionStorage';
+    this.settings.sortProp = 'age';
   }
-  totalNum() {
-    if(this.data) return this.total = this.data.length;
-    return this.total = JSON.parse(window[this.type].getItem(this.name)).length;
-  }
-  removeItemId(data) { // removes an id from the list of the shown ids
+  // removes an id from the list of the shown ids
+  removeItemId(data) {
     if(~this.shownIds.indexOf(data.id)) this.shownIds.splice(this.shownIds.indexOf(data.id), 1);
   }
   isAvailable() {
     try {
-      let storage = window[this.type], x = '__storage_test__';
+      let storage = window[this.settings.storageType], x = '__storage_test__';
       storage.setItem(x, x);
       storage.removeItem(x);
       return true;
@@ -32,7 +29,7 @@ export default class StorageManager extends SubjectObserver {
   }
   isEmpty() {
     if(!this.isAvailable()) return true;
-    if(window[this.type].getItem(this.name)) return false; else return true;
+    if(window[this.settings.storageType].getItem(this.settings.storageName)) return false; else return true;
   }
   save(data) {
     if(!data) return false;
@@ -41,22 +38,24 @@ export default class StorageManager extends SubjectObserver {
       return false;
     }
     try {
-      window[this.type].setItem(this.name, JSON.stringify(data));
-      return this.name;
+      window[this.settings.storageType].setItem(this.settings.storageName, JSON.stringify(data));
+      return this.settings.storageName;
     } catch(e) {
       this.data = data;
       return false;
     }
   }
-  sort(items) { // due to slice() returns a new array, doesn't change the original one
+  // due to slice() returns a new array, doesn't change the original one
+  sort(items) {
     return items.slice(0).sort((a, b) => {
-      return (a[this.sortProp] > b[this.sortProp]) ? 1 : (a[this.sortProp] < b[this.sortProp]) ? -1 : 0;
+      return (a[this.settings.sortProp] > b[this.settings.sortProp]) ? 1 : (a[this.settings.sortProp] < b[this.settings.sortProp]) ? -1 : 0;
     });
   }
   paginate(items) {
     let itemsToShow = [], count = 0;
-    items.every(item => { // stop, if we got 4 items or there are no more items
-      if(count === this.perRow || this.shownIds.length === this.totalNum()) return false;
+    items.every(item => {
+      // stop, if we got 4 items or there are no more items
+      if(count === this.settings.perRow || this.shownIds.length === Manager.total) return false;
       if(!~this.shownIds.indexOf(item.id)) {
         itemsToShow.push(item);
         this.shownIds.push(item.id);
@@ -66,8 +65,10 @@ export default class StorageManager extends SubjectObserver {
     });
     return itemsToShow;
   }
-  restore() { // returns already chunked data, not all the data
-    if(this.data) return this.paginate(this.sort(this.data));
-    return this.paginate(this.sort(JSON.parse(window[this.type].getItem(this.name))));
+  // returns already chunked data, not all the data
+  restore() {
+    let data = this.data ? this.data : JSON.parse(window[this.settings.storageType].getItem(this.settings.storageName));
+    Manager.total = data.length;
+    return this.paginate(this.sort(data));
   }
 }

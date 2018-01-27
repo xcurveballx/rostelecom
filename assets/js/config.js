@@ -23,22 +23,6 @@ const config = [
         instance: storageManager,
         callback: storageManager.save
       }]
-    },{
-      name: 'totalNum',
-      observers: [{
-        instance: eventManager,
-        callback: eventManager.setTotal
-      }]
-    }]
-  },
-  {
-    instance: viewManager,
-    notifies: [{
-      name: 'domReady',
-      observers: [{
-        instance: eventManager,
-        callback: eventManager.setHandlers
-      }]
     }]
   },
   {

@@ -1,16 +1,11 @@
 /**
  * SubjectObserver, adds Subject/Observer functionality to the objects
- * and holds some common properties..
  * Subjects will emit a message to inform all the dependants that something important occurred;
  * Observers - are those dependants that will react somehow.
  */
-export default class SubjectObserver {
+export default class SubjectObserver { 
   constructor(ObserverList) {
     this.observers = ObserverList;
-    this.appId = 'container';
-    this.itemsId = 'items';
-    this.loadingClass = 'loading';
-    this.perRow = 4;
   }
   // Subject methods
   addObserver(evt, observer, callback) {

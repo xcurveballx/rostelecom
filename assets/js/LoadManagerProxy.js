@@ -8,7 +8,7 @@ import {Promise} from "./config";
 export default class LoadManagerProxy extends LoadManager {
   constructor(ObserverList) {
     super(ObserverList);
-    this.url = "http://www.whateverorigin.org/get?url=http://81.177.101.143:30080/test.json";
+    this.settings.url = "http://www.whateverorigin.org/get?url=http://81.177.101.143:30080/test.json";
   }
   load() {
     return new Promise((resolve, reject) => {
@@ -21,7 +21,7 @@ export default class LoadManagerProxy extends LoadManager {
       };
 
       let script = document.createElement('script');
-      script.src = this.url + (~this.url.indexOf('?') ? '&' : '?') + 'callback=' + callbackName;
+      script.src = this.settings.url + (~this.settings.url.indexOf('?') ? '&' : '?') + 'callback=' + callbackName;
       document.body.appendChild(script);
       script.onerror = (error) => reject(error);
     });
