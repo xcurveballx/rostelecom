@@ -13,7 +13,7 @@ export default class StorageManager extends Manager {
     this.shownIds = []; // keeps track of what is currently shown
     this.settings.storageName = 'rostelecom';
     this.settings.storageType = 'sessionStorage';
-    this.settings.sortProp = 'age';
+    this.settings.sortProp = 'id';
   }
   // removes an id from the list of the shown ids
   removeItemId(data) {

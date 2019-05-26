@@ -54,12 +54,12 @@ ${error.stack}</code></pre></div>`;
   }
   templateItem(item) {
     return `<div class="item">
-              <img data-image="${item.imageUrl}" onload="lazyLoad(this)" src="spinner.gif" class="no-image"/>
+              <img data-image="${item.url}" onload="lazyLoad(this)" src="spinner.gif" class="no-image"/>
               <div class="flex">
-                <div class="content front"><span>${item.name}</span></div>
+                <div class="content front"><span>${item.title}</span></div>
                 <div class="content back">
-                  <span>${item.name}</span>
-                  <span>${item.text}</span>
+                  <span>${item.title.split(" ")[0]}</span>
+                  <span>${item.title}</span>
                   <button data-delete="${item.id}"><img src="spinner.gif">delete</button>
                 </div>
               </div>

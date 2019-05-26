@@ -5,11 +5,11 @@ let Promise = require('../../node_modules/es6-promise-polyfill/promise.min.js').
 import ObserverList from './ObserverList';
 import ViewManager from './ViewManager';
 import EventManager from './EventManager';
-import LoadManagerProxy from './LoadManagerProxy';
+import LoadManagerJsonp from './LoadManagerJsonp';
 import StorageManager from './StorageManager';
 
 
-let loadManager = new LoadManagerProxy(new ObserverList());
+let loadManager = new LoadManagerJsonp(new ObserverList());
 let viewManager = new ViewManager(new ObserverList());
 let storageManager = new StorageManager(new ObserverList());
 let eventManager = new EventManager(new ObserverList());

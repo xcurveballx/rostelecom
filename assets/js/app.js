@@ -11,7 +11,7 @@ try {
   Promise.all([json, dom])
   .then(result => {
     try {
-      loadManager.notify('dataLoaded', result[0]['contents']);
+      loadManager.notify('dataLoaded', result[0]);
       eventManager.setEventHandlers(storageManager);
       eventManager.notify('handlersReady', storageManager.restore());
     } catch(e) {

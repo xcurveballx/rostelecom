@@ -1,18 +1,17 @@
 /**
- * Loading implementation using server-side Proxy. I use a free service
- * at http://www.whateverorigin.org which just returns JSON data via JSONP.
+ * Loading implementation using HTTP link to get data via JSONP.
  */
 import LoadManager from "./LoadManager";
 import {Promise} from "./config";
 
-export default class LoadManagerProxy extends LoadManager {
+export default class LoadManagerJsonp extends LoadManager {
   constructor(ObserverList) {
     super(ObserverList);
-    this.settings.url = "http://www.whateverorigin.org/get?url=http://81.177.101.143:30080/test.json";
+    this.settings.url = "http://jsonplaceholder.typicode.com/photos";
   }
   load() {
     return new Promise((resolve, reject) => {
-      // Lets get JSON with needed data via Proxy
+      // Lets get JSON with needed data via JSONP
       let callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
       window[callbackName] = function(data) {
         delete window[callbackName];
