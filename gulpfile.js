@@ -32,7 +32,7 @@ gulp.task('css', function() {
     .pipe(gulpif(isDev, sourcemaps.init()))
     .pipe(remember('css'))
     .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-    .pipe(autoprefixer({browsers: ['last 2 versions'], cascade: false}))
+    .pipe(autoprefixer({cascade: false}))
     .pipe(gulpif(isDev, sourcemaps.write()))
     .pipe(gulp.dest(folders.dest + 'css'));
 });
@@ -43,7 +43,7 @@ gulp.task('js', function() {
     debug: isDev
   });
 
-  return b.transform(babelify.configure({presets: ["env"], sourceMaps: true}))
+  return b.transform("babelify", {presets: ["@babel/preset-env"], sourceMaps: true, global: true, ignore: [/\/node_modules\/(?!@curveballerpacks\/)/]})
     .bundle()
     .pipe(source('app.js'))
     .pipe(buffer())
