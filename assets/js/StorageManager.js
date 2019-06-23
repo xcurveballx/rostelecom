@@ -5,7 +5,7 @@
  * only chunks passed to the views.
  */
 import Manager from "./Manager";
-import Storage from "@curveballerpacks/storage-manager";
+let Storage = require('@curveballerpacks/storage-manager');
 
 export default class StorageManager extends Manager {
   constructor(ObserverList) {

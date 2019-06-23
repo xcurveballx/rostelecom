@@ -1,7 +1,7 @@
 /**
  * Config variable establishes Subject-Observer relashionships.
  */
-let Promise = require('../../node_modules/es6-promise-polyfill/promise.min.js').Promise;
+let Promise = require('es6-promise-polyfill').Promise;
 import ObserverList from './ObserverList';
 import ViewManager from './ViewManager';
 import EventManager from './EventManager';

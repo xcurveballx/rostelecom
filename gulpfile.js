@@ -20,7 +20,7 @@ const log = require('gulplog');
 const source = require('vinyl-source-stream');
 const buffer = require('vinyl-buffer');
 
-const isDev = false, //process.env.NODE_ENV != 'production',
+const isDev = true, //process.env.NODE_ENV != 'production',
       folders = {
 	      src: './assets/',
 	      dest: './public/'
@@ -38,19 +38,18 @@ gulp.task('css', function() {
 });
 
 gulp.task('js', function() {
-  var b = browserify({
-    entries: folders.src + 'js/app.js',
-    debug: isDev
-  });
-
-  return b.transform("babelify", {presets: ["@babel/preset-env"], sourceMaps: true, global: true, ignore: [/\/node_modules\/(?!@curveballerpacks\/)/]})
+  return browserify({
+      entries: [folders.src + 'js/app.js'],
+      debug: true
+      })
+    .transform()
     .bundle()
     .pipe(source('app.js'))
     .pipe(buffer())
     .pipe(gulpif(isDev, sourcemaps.init({loadMaps: true})))
     .pipe(uglify()).on('error', log.error)
     .pipe(gulpif(isDev, sourcemaps.write('./')))
-    .pipe(gulp.dest(folders.dest +'js'));
+    .pipe(gulp.dest(folders.dest + 'js'));
 });
 
 gulp.task('watch', function() {

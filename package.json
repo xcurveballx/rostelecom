@@ -3,6 +3,20 @@
   "version": "1.0.0",
   "description": "test task for front-end developer position with Rostelecom",
   "main": "index.js",
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "@babel/preset-env"
+          ],
+          "compact": false
+        }
+      ]
+    ],
+    "debug": true
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -48,7 +62,7 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
-    "@curveballerpacks/storage-manager": "^1.0.2",
+    "@curveballerpacks/storage-manager": "^2.0.0",
     "es6-promise-polyfill": "^1.2.0"
   },
   "browserslist": [
